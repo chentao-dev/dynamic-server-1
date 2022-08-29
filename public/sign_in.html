@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+    <title>登录页面</title>
+</head>
+
+<body>
+    <form id="signInForm" action="">
+        <div><label for="">用户名<input type="text" name="name"></label></div>
+        <div><label for="">密码<input type="password" name="password"></label></div>
+        <div><button type="submit">登录</button></div>
+    </form>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        let registerForm = document.querySelector('#signInForm');
+        //点击提交按钮
+        registerForm.addEventListener('submit', (e) => {
+            //阻止默认事件, 不然提交会刷新页面
+            e.preventDefault()
+
+            let name = registerForm.querySelector('input[name=name]').value
+            let password = registerForm.querySelector('input[name=password]').value
+            // console.log(name, password);
+
+            $.ajax({
+                method: "POST",
+                url: "/sign_in",
+                contentType: "text/json;charset=utf-8",
+                data: JSON.stringify({ name: name, password: password }),
+            }).then(() => {
+                alert('登录成功')
+                location.href = '/home.html'  //用户首页
+            }, () => { })
+        })
+    </script>
+</body>
+
+</html>
